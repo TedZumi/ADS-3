@@ -1,7 +1,6 @@
 // Copyright 2021 NNTU-CS
 #include <string>
 #include "tstack.h"
-using namespace std;
 
 int priority(char ch) {
   switch (ch) {
@@ -14,10 +13,10 @@ int priority(char ch) {
     default: return -1;
   }
 }
-      
-string infx2pstfx(string inf) {
+
+std::string infx2pstfx(std::string inf) {
   TStack<char> stack1;
-  string str = "";
+  std::string str = "";
   for (int i = 0; i < inf.size(); i++) {
     char ch = inf[i];
     int k = priority(ch);
@@ -28,17 +27,18 @@ string infx2pstfx(string inf) {
       if (stack1.isEmpty() || k == 0 || k > priority(stack1.get()))
         stack1.push(ch);
       else {
-        if (ch == ')')
+        if (ch == ')') {
           while (true) {
             char sym = stack1.get();
             stack1.pop();
             if (sym != '(') {
               str.push_back(sym);
               str.push_back(' ');
-            } else
+            } else {
               break;
+            }
           }
-        else {
+        } else {
           while (!stack1.isEmpty()) {
             char lastStackEl = stack1.get();
             stack1.pop();
@@ -50,7 +50,7 @@ string infx2pstfx(string inf) {
           stack1.push(ch);
         }
       }
-    } 
+    }
   }
   while (!stack1.isEmpty()) {
     char lastStackEl = stack1.get();
@@ -86,7 +86,7 @@ int calc(int k1, int k2, char ch) {
   }
 }
 
-int eval(string pst) {
+int eval(std::string pst) {
   TStack<int> stack2;
   for (int i = 0; i < pst.size(); i++) {
     char ch = pst[i];
@@ -94,9 +94,9 @@ int eval(string pst) {
       continue;
     }
     int prior = priority(ch);
-    if (prior == -1)
+    if (prior == -1) {
       stack2.push(ch - 48);
-    else {
+    } else {
       int k1 = stack2.get();
       stack2.pop();
       int k2 = stack2.get();
