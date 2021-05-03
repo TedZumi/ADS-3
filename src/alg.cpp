@@ -20,13 +20,13 @@ std::string infx2pstfx(std::string inf) {
   for (int i = 0; i < inf.size(); i++) {
     char ch = inf[i];
     int k = priority(ch);
-    if (k == -1 ) {
+    if (k == -1) {
       str.push_back(ch);
       str.push_back(' ');
     } else {
-      if (stack1.isEmpty() || k == 0 || k > priority(stack1.get()))
+      if (stack1.isEmpty() || k == 0 || k > priority(stack1.get())) {
         stack1.push(ch);
-      else {
+      } else {
         if (ch == ')') {
           while (true) {
             char sym = stack1.get();
